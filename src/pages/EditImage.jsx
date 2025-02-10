@@ -361,7 +361,7 @@ const EditImage = () => {
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="block text-gray-200">Brush Size</label>
+                  <label className="block text-gray-100">Brush Size</label>
                   <input
                     type="range"
                     min="1"
