@@ -425,7 +425,7 @@ const EditImage = () => {
                 )}
               </>
             ) : (
-              <p className="text-gray-500">Upload an image to start editing.</p>
+              <p className="text-gray-400">Upload an image to start editing.</p>
             )}
           </div>
         </div>
