@@ -368,7 +368,7 @@ const EditImage = () => {
                     max="50"
                     value={brushSize}
                     onChange={(e) => setBrushSize(parseInt(e.target.value))}
-                    className="w-full h-2 bg-gray-700 rounded-lg"
+                    className="w-full h-2 bg-gray-600 rounded-lg"
                   />
                 </div>
                 <div className="space-y-2">
