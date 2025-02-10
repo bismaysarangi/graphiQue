@@ -6,7 +6,6 @@ import { Edit } from "lucide-react";
 const App = () => {
   return <div className="">
     <EditImage />
-    <PaintZone />
   </div>;
 };
 
