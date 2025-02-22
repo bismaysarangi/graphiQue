@@ -18,6 +18,13 @@ const EditImage = () => {
     contrast: 100,
     saturation: 100,
     blur: 0,
+    grayscale: 0,
+    sepia: 0,
+    invert: 0,
+    hueRotate: 0,
+    opacity: 100,
+    dropShadow: "0px 0px 0px black",
+    saturate: 100,
   });
 
   // Brush states
@@ -81,27 +88,41 @@ const EditImage = () => {
       contrast: 100,
       saturation: 100,
       blur: 0,
+      grayscale: 0,
+      sepia: 0,
+      invert: 0,
+      hueRotate: 0,
+      opacity: 100,
+      dropShadow: '0px 0px 0px transparent',
     });
   };
-
+  
   const applyFilters = () => {
     if (!image || !canvasRef.current || !imageRef.current) return;
+  
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
-    
+  
     const img = imageRef.current;
+    
     const filterString = `
       brightness(${filters.brightness / 100})
       contrast(${filters.contrast}%)
       saturate(${filters.saturation}%)
       blur(${filters.blur}px)
+      grayscale(${filters.grayscale}%)
+      sepia(${filters.sepia}%)
+      invert(${filters.invert}%)
+      hue-rotate(${filters.hueRotate}deg)
+      opacity(${filters.opacity}%)
+      drop-shadow(${filters.dropShadow})
     `.trim();
     
     ctx.filter = filterString;
     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
   };
-
+  
   // Drawing functions
   const startDrawing = (e) => {
     if (editMode !== 'brush') return;
