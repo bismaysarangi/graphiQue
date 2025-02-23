@@ -99,7 +99,7 @@ const EditImage = () => {
   
   const applyFilters = () => {
     if (!image || !canvasRef.current || !imageRef.current) return;
-  
+    
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
@@ -122,7 +122,8 @@ const EditImage = () => {
     ctx.filter = filterString;
     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
   };
-  
+    
+
   // Drawing functions
   const startDrawing = (e) => {
     if (editMode !== 'brush') return;
