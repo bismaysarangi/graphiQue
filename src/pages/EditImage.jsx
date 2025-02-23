@@ -349,7 +349,17 @@ const EditImage = () => {
           <div className="w-64 space-y-4">
             {editMode === 'filter' ? (
               // Filter controls
-              ['Brightness', 'Contrast', 'Saturation', 'Blur'].map((label, index) => (
+              [
+                'Brightness',
+                'Contrast',
+                'Saturation',
+                'Blur',
+                'Hue Rotate',
+                'Grayscale',
+                'Sepia',
+                'Invert',
+                'Opacity'
+              ].map((label, index) => (
                 <div key={index} className="space-y-2">
                   <label className="flex items-center gap-2 text-gray-200">
                     <Sun className="w-4 h-4" />
@@ -357,12 +367,17 @@ const EditImage = () => {
                   </label>
                   <input
                     type="range"
-                    min="0"
-                    max={label === 'Blur' ? 10 : 200}
-                    value={filters[label.toLowerCase()]}
+                    min={label === 'Blur' ? 0 : label === 'Hue Rotate' ? 0 : label === 'Opacity' ? 0 : 0}
+                    max={
+                      label === 'Blur' ? 10 : 
+                      label === 'Hue Rotate' ? 360 : 
+                      label === 'Grayscale' || label === 'Sepia' || label === 'Invert' || label === 'Opacity' ? 100 : 
+                      200
+                    }
+                    value={filters[label.toLowerCase().replace(' ', '-')]}
                     onChange={(e) =>
                       handleFilterChange(
-                        label.toLowerCase(),
+                        label.toLowerCase().replace(' ', '-'),
                         Number(e.target.value)
                       )
                     }
