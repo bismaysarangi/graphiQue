@@ -79,10 +79,22 @@ const EditImage = () => {
 
   // Filter functions
   const handleFilterChange = (filterType, value) => {
+    // Save current state before applying the filter
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d');
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    setUndoStack(prev => [...prev, imageData]);
+
     setFilters(prev => ({ ...prev, [filterType]: value }));
   };
 
   const resetFilters = () => {
+    // Save current state before resetting filters
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d');
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    setUndoStack(prev => [...prev, imageData]);
+
     setFilters({
       brightness: 100,
       contrast: 100,
@@ -114,15 +126,12 @@ const EditImage = () => {
       grayscale(${filters.grayscale}%)
       sepia(${filters.sepia}%)
       invert(${filters.invert}%)
-      hue-rotate(${filters.hueRotate}deg)
-      opacity(${filters.opacity}%)
       drop-shadow(${filters.dropShadow})
     `.trim();
     
     ctx.filter = filterString;
     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
   };
-    
 
   // Drawing functions
   const startDrawing = (e) => {
@@ -354,11 +363,9 @@ const EditImage = () => {
                 'Contrast',
                 'Saturation',
                 'Blur',
-                'Hue Rotate',
                 'Grayscale',
                 'Sepia',
                 'Invert',
-                'Opacity'
               ].map((label, index) => (
                 <div key={index} className="space-y-2">
                   <label className="flex items-center gap-2 text-gray-200">
@@ -369,10 +376,8 @@ const EditImage = () => {
                     type="range"
                     min={label === 'Blur' ? 0 : label === 'Hue Rotate' ? 0 : label === 'Opacity' ? 0 : 0}
                     max={
-                      label === 'Blur' ? 10 : 
-                      label === 'Hue Rotate' ? 360 : 
-                      label === 'Grayscale' || label === 'Sepia' || label === 'Invert' || label === 'Opacity' ? 100 : 
-                      200
+                      label === 'Blur' ? 10 :  
+                      label === 'Grayscale' || label === 'Sepia' || label === 'Invert' ? 100 : 200
                     }
                     value={filters[label.toLowerCase().replace(' ', '-')]}
                     onChange={(e) =>
