@@ -21,8 +21,6 @@ const EditImage = () => {
     grayscale: 0,
     sepia: 0,
     invert: 0,
-    hueRotate: 0,
-    opacity: 100,
     dropShadow: "0px 0px 0px black",
     saturate: 100,
   });
@@ -91,8 +89,6 @@ const EditImage = () => {
       grayscale: 0,
       sepia: 0,
       invert: 0,
-      hueRotate: 0,
-      opacity: 100,
       dropShadow: '0px 0px 0px transparent',
     });
   };
@@ -114,8 +110,6 @@ const EditImage = () => {
       grayscale(${filters.grayscale}%)
       sepia(${filters.sepia}%)
       invert(${filters.invert}%)
-      hue-rotate(${filters.hueRotate}deg)
-      opacity(${filters.opacity}%)
       drop-shadow(${filters.dropShadow})
     `.trim();
     
@@ -354,11 +348,9 @@ const EditImage = () => {
                 'Contrast',
                 'Saturation',
                 'Blur',
-                'Hue Rotate',
                 'Grayscale',
                 'Sepia',
-                'Invert',
-                'Opacity'
+                'Invert'
               ].map((label, index) => (
                 <div key={index} className="space-y-2">
                   <label className="flex items-center gap-2 text-gray-200">
@@ -367,11 +359,10 @@ const EditImage = () => {
                   </label>
                   <input
                     type="range"
-                    min={label === 'Blur' ? 0 : label === 'Hue Rotate' ? 0 : label === 'Opacity' ? 0 : 0}
+                    min="0"
                     max={
                       label === 'Blur' ? 10 : 
-                      label === 'Hue Rotate' ? 360 : 
-                      label === 'Grayscale' || label === 'Sepia' || label === 'Invert' || label === 'Opacity' ? 100 : 
+                      label === 'Grayscale' || label === 'Sepia' || label === 'Invert' ? 100 : 
                       200
                     }
                     value={filters[label.toLowerCase().replace(' ', '-')]}
