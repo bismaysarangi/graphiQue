@@ -12,17 +12,20 @@ function App() {
   return (
     <Router>
       <div className="flex flex-col min-h-screen bg-black text-white">
-        <Navbar />
         <main>
           <Routes>
-            <Route path="/" element={
-              <>
-                <Hero />
-                <Features />
-                <Works />
-                <FAQ />
-              </>
-            } />
+            <Route
+              path="/"
+              element={
+                <>
+                  <Navbar />
+                  <Hero />
+                  <Features />
+                  <Works />
+                  <FAQ />
+                </>
+              }
+            />
             <Route path="/edit-image" element={<EditImage />} />
             <Route path="/paint-zone" element={<PaintZone />} />
           </Routes>
