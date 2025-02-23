@@ -13,17 +13,20 @@ function App() {
     <Router>
       <div className="flex flex-col min-h-screen bg-black text-white">
         <Navbar />
-        {/* Add padding to prevent content from being covered by the navbar */}
         <main className="pt-20 md:pt-24">
           <Routes>
-            <Route path="/" element={
-              <>
-                <Hero />
-                <Features />
-                <Works />
-                <FAQ />
-              </>
-            } />
+            <Route
+              path="/"
+              element={
+                <>
+                  <Navbar />
+                  <Hero />
+                  <Features />
+                  <Works />
+                  <FAQ />
+                </>
+              }
+            />
             <Route path="/edit-image" element={<EditImage />} />
             <Route path="/paint-zone" element={<PaintZone />} />
           </Routes>
