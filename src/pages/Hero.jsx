@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
-import PropTypes from "prop-types"; 
-import { cn } from "../lib/utils"; 
+import PropTypes from "prop-types";
+import { cn } from "../lib/utils";
+import Magnet from "../components/cta";
+import { Link } from "react-router-dom";
 
 const classNames = (...classes) => classes.filter(Boolean).join(" ");
 
@@ -22,7 +24,9 @@ function ElegantShape({
         ease: [0.23, 0.86, 0.39, 0.96],
         opacity: { duration: 1.2 },
       }}
-      className={cn ? cn("absolute", className) : classNames("absolute", className)}
+      className={
+        cn ? cn("absolute", className) : classNames("absolute", className)
+      }
     >
       <motion.div
         animate={{ y: [0, 15, 0] }}
@@ -31,25 +35,27 @@ function ElegantShape({
         className="relative"
       >
         <div
-          className={cn
-            ? cn(
-                "absolute inset-0 rounded-full",
-                "bg-gradient-to-r to-transparent",
-                gradient,
-                "backdrop-blur-[2px] border-2 border-white/[0.15]",
-                "shadow-[0_8px_32px_0_rgba(255,255,255,0.1)]",
-                "after:absolute after:inset-0 after:rounded-full",
-                "after:bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.2),transparent_70%)]"
-              )
-            : classNames(
-                "absolute inset-0 rounded-full",
-                "bg-gradient-to-r to-transparent",
-                gradient,
-                "backdrop-blur-[2px] border-2 border-white/[0.15]",
-                "shadow-[0_8px_32px_0_rgba(255,255,255,0.1)]",
-                "after:absolute after:inset-0 after:rounded-full",
-                "after:bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.2),transparent_70%)]"
-              )}
+          className={
+            cn
+              ? cn(
+                  "absolute inset-0 rounded-full",
+                  "bg-gradient-to-r to-transparent",
+                  gradient,
+                  "backdrop-blur-[2px] border-2 border-white/[0.15]",
+                  "shadow-[0_8px_32px_0_rgba(255,255,255,0.1)]",
+                  "after:absolute after:inset-0 after:rounded-full",
+                  "after:bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.2),transparent_70%)]"
+                )
+              : classNames(
+                  "absolute inset-0 rounded-full",
+                  "bg-gradient-to-r to-transparent",
+                  gradient,
+                  "backdrop-blur-[2px] border-2 border-white/[0.15]",
+                  "shadow-[0_8px_32px_0_rgba(255,255,255,0.1)]",
+                  "after:absolute after:inset-0 after:rounded-full",
+                  "after:bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.2),transparent_70%)]"
+                )
+          }
         />
       </motion.div>
     </motion.div>
@@ -88,11 +94,46 @@ export default function HeroGeometric({
       <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/[0.05] via-transparent to-rose-500/[0.05] blur-3xl" />
 
       <div className="absolute inset-0 overflow-hidden">
-        <ElegantShape delay={0.3} width={600} height={140} rotate={12} gradient="from-indigo-500/[0.15]" className="left-[-10%] md:left-[-5%] top-[15%] md:top-[20%]" />
-        <ElegantShape delay={0.5} width={500} height={120} rotate={-15} gradient="from-rose-500/[0.15]" className="right-[-5%] md:right-[0%] top-[70%] md:top-[75%]" />
-        <ElegantShape delay={0.4} width={300} height={80} rotate={-8} gradient="from-violet-500/[0.15]" className="left-[5%] md:left-[10%] bottom-[5%] md:bottom-[10%]" />
-        <ElegantShape delay={0.6} width={200} height={60} rotate={20} gradient="from-amber-500/[0.15]" className="right-[15%] md:right-[20%] top-[10%] md:top-[15%]" />
-        <ElegantShape delay={0.7} width={150} height={40} rotate={-25} gradient="from-cyan-500/[0.15]" className="left-[20%] md:left-[25%] top-[5%] md:top-[10%]" />
+        <ElegantShape
+          delay={0.3}
+          width={600}
+          height={140}
+          rotate={12}
+          gradient="from-indigo-500/[0.15]"
+          className="left-[-10%] md:left-[-5%] top-[15%] md:top-[20%]"
+        />
+        <ElegantShape
+          delay={0.5}
+          width={500}
+          height={120}
+          rotate={-15}
+          gradient="from-rose-500/[0.15]"
+          className="right-[-5%] md:right-[0%] top-[70%] md:top-[75%]"
+        />
+        <ElegantShape
+          delay={0.4}
+          width={300}
+          height={80}
+          rotate={-8}
+          gradient="from-violet-500/[0.15]"
+          className="left-[5%] md:left-[10%] bottom-[5%] md:bottom-[10%]"
+        />
+        <ElegantShape
+          delay={0.6}
+          width={200}
+          height={60}
+          rotate={20}
+          gradient="from-amber-500/[0.15]"
+          className="right-[15%] md:right-[20%] top-[10%] md:top-[15%]"
+        />
+        <ElegantShape
+          delay={0.7}
+          width={150}
+          height={40}
+          rotate={-25}
+          gradient="from-cyan-500/[0.15]"
+          className="left-[20%] md:left-[25%] top-[5%] md:top-[10%]"
+        />
       </div>
 
       <div className="relative z-10 container mx-auto px-4 md:px-6">
@@ -104,13 +145,25 @@ export default function HeroGeometric({
             animate="visible"
             className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.03] border border-white/[0.08] mb-8 md:mb-12"
           >
-            <img src="https://kokonutui.com/logo.svg" alt="Kokonut UI" width={20} height={20} />
+            <img
+              src="https://kokonutui.com/logo.svg"
+              alt="Kokonut UI"
+              width={20}
+              height={20}
+            />
             <span className="text-sm text-white/60 tracking-wide">{badge}</span>
           </motion.div>
 
-          <motion.div custom={1} variants={fadeUpVariants} initial="hidden" animate="visible">
+          <motion.div
+            custom={1}
+            variants={fadeUpVariants}
+            initial="hidden"
+            animate="visible"
+          >
             <h1 className="text-4xl sm:text-6xl md:text-8xl font-bold mb-6 md:mb-8 tracking-tight">
-              <span className="bg-clip-text text-transparent bg-gradient-to-b from-white to-white/80">{title1}</span>
+              <span className="bg-clip-text text-transparent bg-gradient-to-b from-white to-white/80">
+                {title1}
+              </span>
               <br />
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 via-white/90 to-rose-300 font-pacifico">
                 {title2}
@@ -118,10 +171,33 @@ export default function HeroGeometric({
             </h1>
           </motion.div>
 
-          <motion.div custom={2} variants={fadeUpVariants} initial="hidden" animate="visible">
+          <motion.div
+            custom={2}
+            variants={fadeUpVariants}
+            initial="hidden"
+            animate="visible"
+          >
             <p className="text-base sm:text-lg md:text-xl text-white/40 mb-8 leading-relaxed font-light tracking-wide max-w-xl mx-auto px-4">
-              Crafting exceptional digital experiences through innovative design and cutting-edge technology.
+              Crafting exceptional digital experiences through innovative design
+              and cutting-edge technology.
             </p>
+
+            <div className="  flex items-center justify-center gap-32 ">
+              <Link to="/edit-image">
+                <Magnet padding={70} disabled={false} magnetStrength={2}>
+                  <p className=" font-bold border-2 rounded-2xl p-4 border-amber-50 ">
+                    Edit Image
+                  </p>
+                </Magnet>
+              </Link>
+              <Link to="/paint-zone">
+                <Magnet padding={70} disabled={false} magnetStrength={2}>
+                  <p className=" font-bold border-2 rounded-2xl p-4 border-amber-50 ">
+                    Paint Zone
+                  </p>
+                </Magnet>
+              </Link>
+            </div>
           </motion.div>
         </div>
       </div>

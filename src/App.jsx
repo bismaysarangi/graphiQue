@@ -15,15 +15,20 @@ function App() {
         <Navbar />
         {/* Add padding to prevent content from being covered by the navbar */}
         <main className="pt-20 md:pt-24">
+        <main>
           <Routes>
-            <Route path="/" element={
-              <>
-                <Hero />
-                <Features />
-                <Works />
-                <FAQ />
-              </>
-            } />
+            <Route
+              path="/"
+              element={
+                <>
+                  <Navbar />
+                  <Hero />
+                  <Features />
+                  <Works />
+                  <FAQ />
+                </>
+              }
+            />
             <Route path="/edit-image" element={<EditImage />} />
             <Route path="/paint-zone" element={<PaintZone />} />
           </Routes>
