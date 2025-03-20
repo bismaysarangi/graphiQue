@@ -10,7 +10,7 @@ const EditImage = () => {
   const [image, setImage] = useState(null);
   const [isDrawing, setIsDrawing] = useState(false);
   const [undoStack, setUndoStack] = useState([]);
-  const [editMode, setEditMode] = useState('filter'); // 'filter', 'brush', or 'crop'
+  const [editMode, setEditMode] = useState('enhancements'); // 'filter', 'brush', or 'crop'
 
   // Filter states
   const [filters, setFilters] = useState({
@@ -262,7 +262,7 @@ const EditImage = () => {
   };
 
   useEffect(() => {
-    if (editMode === 'filter') {
+    if (editMode === 'enhancements') {
       applyFilters();
     }
   }, [filters, image, editMode]);
@@ -295,7 +295,7 @@ const EditImage = () => {
                   <Download className="mr-2 w-4 h-4 inline" />
                   Save
                 </button>
-                {editMode === 'filter' && (
+                {editMode === 'enhancements' && (
                   <button
                     onClick={resetFilters}
                     className="text-gray-400 hover:text-gray-200 p-2 rounded-md"
@@ -319,14 +319,14 @@ const EditImage = () => {
 
         <div className="flex gap-4 mb-4">
           <button
-            onClick={() => setEditMode('filter')}
+            onClick={() => setEditMode('enhancements')}
             className={`px-4 py-2 rounded-lg ${
               editMode === 'filter'
                 ? 'bg-blue-600 text-white'
                 : 'bg-gray-700 text-gray-300'
             }`}
           >
-            Filter Mode
+            Enhancements
           </button>
           <button
             onClick={() => setEditMode('brush')}
