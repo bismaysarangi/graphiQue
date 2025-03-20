@@ -119,9 +119,6 @@ const EditImage = () => {
       contrast(${filters.contrast}%)
       saturate(${filters.saturation}%)
       blur(${filters.blur}px)
-      grayscale(${filters.grayscale}%)
-      sepia(${filters.sepia}%)
-      invert(${filters.invert}%)
       drop-shadow(${filters.dropShadow})
     `.trim();
     
@@ -262,7 +259,7 @@ const EditImage = () => {
   };
 
   useEffect(() => {
-    if (editMode === 'enhancements') {
+    if (editMode === 'enhancements'  || editMode === 'filters') {
       applyFilters();
     }
   }, [filters, image, editMode]);
@@ -327,6 +324,16 @@ const EditImage = () => {
             }`}
           >
             Enhancements
+            <div className="flex gap-4 mb-4">
+          <button
+            onClick={() => setEditMode('Filters')}
+            className={`px-4 py-2 rounded-lg ${
+              editMode === 'Filters'
+                ? 'bg-blue-600 text-white'
+                : 'bg-gray-700 text-gray-300'
+            }`}
+          >
+            Filter
           </button>
           <button
             onClick={() => setEditMode('brush')}
@@ -359,9 +366,6 @@ const EditImage = () => {
                 'Contrast',
                 'Saturation',
                 'Blur',
-                'Grayscale',
-                'Sepia',
-                'Invert',
 
               ].map((label, index) => (
                 <div key={index} className="space-y-2">
