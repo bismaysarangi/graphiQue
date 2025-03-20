@@ -321,7 +321,7 @@ const EditImage = () => {
           <button
             onClick={() => setEditMode('enhancements')}
             className={`px-4 py-2 rounded-lg ${
-              editMode === 'filter'
+              editMode === 'enhancements'
                 ? 'bg-blue-600 text-white'
                 : 'bg-gray-700 text-gray-300'
             }`}
