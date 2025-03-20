@@ -352,7 +352,7 @@ const EditImage = () => {
 
         <div className="flex gap-8">
           <div className="w-64 space-y-4">
-            {editMode === 'filter' ? (
+            {editMode === 'enhancements' ? (
               // Filter controls
               [
                 'Brightness',
