@@ -280,7 +280,7 @@ const EditImage = () => {
   };
 
   const applyFreehandCrop = () => {
-    if (freehandPath.length < 3) return; // Need at least 3 points for a valid crop
+    if (freehandPath.length < 3) return;
   
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
@@ -291,27 +291,40 @@ const EditImage = () => {
     tempCanvas.height = canvas.height;
     const tempCtx = tempCanvas.getContext('2d');
   
-    // Draw the original image onto the temporary canvas
+    // Draw the current image onto the temporary canvas
     tempCtx.drawImage(canvas, 0, 0);
   
     // Clear the original canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
   
-    // Define clipping path for freehand selection
-    ctx.beginPath();
-    freehandPath.forEach((point, index) => {
-      if (index === 0) ctx.moveTo(point.x, point.y);
-      else ctx.lineTo(point.x, point.y);
-    });
-    ctx.closePath();
-    ctx.clip();
+    // Create a new blank mask
+    const maskCanvas = document.createElement('canvas');
+    maskCanvas.width = canvas.width;
+    maskCanvas.height = canvas.height;
+    const maskCtx = maskCanvas.getContext('2d');
   
-    // Draw the cropped region back onto the original canvas
+    // Draw the freehand selection as a mask
+    maskCtx.fillStyle = "black";
+    maskCtx.fillRect(0, 0, canvas.width, canvas.height);
+    maskCtx.globalCompositeOperation = "destination-out";
+    maskCtx.beginPath();
+    freehandPath.forEach((point, index) => {
+      if (index === 0) maskCtx.moveTo(point.x, point.y);
+      else maskCtx.lineTo(point.x, point.y);
+    });
+    maskCtx.closePath();
+    maskCtx.fill();
+  
+    // Apply the mask to the image
+    tempCtx.globalCompositeOperation = "destination-in";
+    tempCtx.drawImage(maskCanvas, 0, 0);
+  
+    // Draw the cropped image back onto the original canvas
     ctx.drawImage(tempCanvas, 0, 0);
   
-    // Clear freehand path state
+    // Reset freehand path
     setFreehandPath([]);
-  };
+  };  
   
   useEffect(() => {
     if (editMode === 'enhancements') {
@@ -501,31 +514,34 @@ const EditImage = () => {
                   onLoad={applyFilters}
                 />
                 <canvas
-                  ref={canvasRef}
-                  className={`rounded-lg ${editMode === 'brush' ? 'cursor-crosshair' : ''}`}
-                  onMouseDown={(e) => {
-                    if (editMode === 'crop') {
-                      cropMode === 'rectangular' ? startCrop(e) : startFreehandCrop(e);
-                    } else {
-                      startDrawing(e);
-                    }
-                  }}
-                  onMouseMove={(e) => {
-                    if (editMode === 'crop') {
-                      cropMode === 'rectangular' ? updateCrop(e) : updateFreehandCrop(e);
-                    } else {
-                      draw(e);
-                    }
-                  }}
-                  onMouseUp={(e) => {
-                    if (editMode === 'crop') {
-                      cropMode === 'rectangular' ? endCrop() : applyFreehandCrop();
-                    } else {
-                      stopDrawing();
-                    }
-                  }}
-                  onMouseOut={stopDrawing}
-                />
+  ref={canvasRef}
+  className={`rounded-lg ${editMode === 'brush' ? 'cursor-crosshair' : ''}`}
+  onMouseDown={(e) => {
+    if (editMode === 'crop') {
+      if (cropMode === 'rectangular') startCrop(e);
+      else startFreehandCrop(e);
+    } else {
+      startDrawing(e);
+    }
+  }}
+  onMouseMove={(e) => {
+    if (editMode === 'crop') {
+      if (cropMode === 'rectangular') updateCrop(e);
+      else updateFreehandCrop(e);
+    } else {
+      draw(e);
+    }
+  }}
+  onMouseUp={(e) => {
+    if (editMode === 'crop') {
+      if (cropMode === 'rectangular') endCrop();
+      else applyFreehandCrop();
+    } else {
+      stopDrawing();
+    }
+  }}
+/>
+
               </>
             ) : (
               <p className="text-gray-400">Upload an image to start editing.</p>
