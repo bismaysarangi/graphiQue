@@ -11,7 +11,7 @@ const EditImage = () => {
   const [isDrawing, setIsDrawing] = useState(false);
   const [undoStack, setUndoStack] = useState([]);
   const [editMode, setEditMode] = useState('enhancements'); // 'filter', 'brush', or 'crop'
-
+ 
   // Filter states
   const [filters, setFilters] = useState({
     brightness: 100,
@@ -35,6 +35,8 @@ const EditImage = () => {
   const [cropStart, setCropStart] = useState({ x: 0, y: 0 });
   const [cropEnd, setCropEnd] = useState({ x: 0, y: 0 });
   const [cropStack, setCropStack] = useState([]); // Stack to store canvas states for undo
+  const [cropMode, setCropMode] = useState('rectangular'); // 'rectangular' or 'freehand'
+  const [freehandPath, setFreehandPath] = useState([]);
 
   // Constants
   const MAX_WIDTH = 800;
@@ -251,6 +253,57 @@ const EditImage = () => {
       setCropStack(prev => prev.slice(0, -1));
     }
   };
+  const toggleCropMode = () => {
+    setCropMode(prev => (prev === 'rectangular' ? 'freehand' : 'rectangular'));
+  };
+
+  const startFreehandCrop = (e) => {
+    if (editMode !== 'crop' || cropMode !== 'freehand') return;
+
+    const canvas = canvasRef.current;
+    const rect = canvas.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    setFreehandPath([{ x, y }]);
+  };
+
+  const updateFreehandCrop = (e) => {
+    if (freehandPath.length === 0 || cropMode !== 'freehand') return;
+
+    const canvas = canvasRef.current;
+    const rect = canvas.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    setFreehandPath([...freehandPath, { x, y }]);
+  };
+
+  const applyFreehandCrop = () => {
+    if (freehandPath.length < 3) return;
+
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d');
+
+    const tempCanvas = document.createElement('canvas');
+    tempCanvas.width = canvas.width;
+    tempCanvas.height = canvas.height;
+    const tempCtx = tempCanvas.getContext('2d');
+
+    tempCtx.drawImage(canvas, 0, 0);
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.beginPath();
+    freehandPath.forEach((point, index) => {
+      if (index === 0) ctx.moveTo(point.x, point.y);
+      else ctx.lineTo(point.x, point.y);
+    });
+    ctx.closePath();
+    ctx.clip();
+
+    ctx.drawImage(tempCanvas, 0, 0);
+    setFreehandPath([]);
+  };
 
   // Save function
   const saveImage = () => {
@@ -347,7 +400,12 @@ const EditImage = () => {
             }`}
           >
             Crop Mode
-          </button>
+            </button>
+          {editMode === 'crop' && (
+            <button onClick={toggleCropMode} className="px-4 py-2 rounded-lg bg-gray-700 text-gray-300">
+              Switch to {cropMode === 'rectangular' ? 'Freehand' : 'Rectangular'}
+            </button>
+          )}
         </div>
 
         <div className="flex gap-8">
