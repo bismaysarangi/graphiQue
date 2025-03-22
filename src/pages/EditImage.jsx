@@ -34,9 +34,7 @@ const EditImage = () => {
   const [isCropping, setIsCropping] = useState(false);
   const [cropStart, setCropStart] = useState({ x: 0, y: 0 });
   const [cropEnd, setCropEnd] = useState({ x: 0, y: 0 });
-  const [cropStack, setCropStack] = useState([]);
-  const [isFreeformCropping, setIsFreeformCropping] = useState(false);
-  const [cropPath, setCropPath] = useState([]); // Stack to store canvas states for undo
+  const [cropStack, setCropStack] = useState([]); // Stack to store canvas states for undo
 
   // Constants
   const MAX_WIDTH = 800;
@@ -195,15 +193,10 @@ const EditImage = () => {
     const rect = canvas.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-
-    if (isFreeformCropping) {
-      setCropPath([{ x, y }]);
-      setIsCropping(true);
-    } else {
-      setCropStart({ x, y });
-      setCropEnd({ x, y });
-      setIsCropping(true);
-    }
+    
+    setCropStart({ x, y });
+    setCropEnd({ x, y });
+    setIsCropping(true);
 
     // Save current state for undo
     const ctx = canvas.getContext('2d');
@@ -212,19 +205,6 @@ const EditImage = () => {
   };
 
   const updateCrop = (e) => {
-    if (!isCropping || editMode !== 'crop') return;
-
-    const canvas = canvasRef.current;
-    const rect = canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    if (isFreeformCropping) {
-        setCropPath(prev => [...prev, { x, y }]);
-    } else {
-        setCropEnd({ x, y });
-    }
-};
     if (!isCropping || editMode !== 'crop') return;
     
     const canvas = canvasRef.current;
@@ -236,37 +216,6 @@ const EditImage = () => {
   };
 
   const endCrop = () => {
-    if (editMode !== 'crop') return;
-    
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext('2d');
-
-    if (isFreeformCropping) {
-        ctx.beginPath();
-        if (cropPath.length > 1) {
-            ctx.moveTo(cropPath[0].x, cropPath[0].y);
-            cropPath.forEach(point => ctx.lineTo(point.x, point.y));
-            ctx.closePath();
-            ctx.clip();
-        }
-    } else {
-        const x = Math.min(cropStart.x, cropEnd.x);
-        const y = Math.min(cropStart.y, cropEnd.y);
-        const width = Math.abs(cropEnd.x - cropStart.x);
-        const height = Math.abs(cropEnd.y - cropStart.y);
-
-        const imageData = ctx.getImageData(x, y, width, height);
-
-        canvas.width = width;
-        canvas.height = height;
-        ctx.putImageData(imageData, 0, 0);
-    }
-
-    setIsCropping(false);
-    setCropStart({ x: 0, y: 0 });
-    setCropEnd({ x: 0, y: 0 });
-    setCropPath([]);
-};
     if (editMode !== 'crop') return;
     
     const canvas = canvasRef.current;
@@ -286,6 +235,7 @@ const EditImage = () => {
     setIsCropping(false);
     setCropStart({ x: 0, y: 0 });
     setCropEnd({ x: 0, y: 0 });
+  };
 
   const undoLastCrop = () => {
     if (cropStack.length > 0) {
@@ -523,5 +473,6 @@ const EditImage = () => {
       </div>
     </div>
   );
+};
 
 export default EditImage;
