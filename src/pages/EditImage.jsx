@@ -1,5 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Sliders, Sun, Upload, Download, RefreshCw, Undo, Crop } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
+import { Sliders, Sun, Upload, Download, Undo } from 'lucide-react';
 
 const EditImage = () => {
   // Canvas and image refs
@@ -78,15 +78,15 @@ const EditImage = () => {
   };
 
   // Filter functions
-  const handleFilterChange = (filterType, value) => {
-    // Save current state before applying the filter
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext('2d');
-    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    setUndoStack(prev => [...prev, imageData]);
+  // const handleFilterChange = (filterType, value) => {
+  //   // Save current state before applying the filter
+  //   const canvas = canvasRef.current;
+  //   const ctx = canvas.getContext('2d');
+  //   const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  //   setUndoStack(prev => [...prev, imageData]);
 
-    setFilters(prev => ({ ...prev, [filterType]: value }));
-  };
+  //   setFilters(prev => ({ ...prev, [filterType]: value }));
+  // };
 
   const resetFilters = () => {
     // Save current state before resetting filters
@@ -327,7 +327,7 @@ const EditImage = () => {
                     onClick={resetFilters}
                     className="text-gray-400 hover:text-gray-200 p-2 rounded-md"
                   >
-                    <RefreshCw className="w-4 h-4" />
+                    <Undo className="w-4 h-4" />
                   </button>
                 )}
                 {(editMode === 'brush' || editMode === 'crop') && (

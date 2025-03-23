@@ -11,7 +11,7 @@ import PaintZone from "./pages/PaintZone";
 function App() {
   return (
     <Router>
-      <div className="flex flex-col min-h-screen bg-black text-white font-marcellus">
+      <div className="flex flex-col min-h-screen bg-black text-white font-montserrat">
         <Navbar />
 
         <main className="pt-20 md:pt-24">
