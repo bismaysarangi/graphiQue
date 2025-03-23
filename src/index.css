@@ -1,9 +1,9 @@
 @import "tailwindcss";
 @import url('https://fonts.googleapis.com/css2?family=Allura&family=Marcellus&display=swap');
 
-.font-marcellus {
+/* .font-marcellus {
     font-family: "Marcellus", serif;
-}
+} */
 
 .font-allura {
     font-family: "Allura", cursive;

@@ -18,6 +18,8 @@ const EditImage = () => {
     contrast: 100,
     saturation: 100,
     blur: 0,
+    exposure: 100,
+    vignette: 0,
     grayscale: 0,
     sepia: 0,
     invert: 0,
@@ -102,6 +104,8 @@ const EditImage = () => {
       sepia: 0,
       invert: 0,
       dropShadow: '0px 0px 0px transparent',
+      exposure: 100,  
+      vignette: 0 
     });
   };
   
@@ -123,10 +127,33 @@ const EditImage = () => {
       sepia(${filters.sepia}%)
       invert(${filters.invert}%)
       drop-shadow(${filters.dropShadow})
+      brightness(${filters.exposure / 100})
     `.trim();
     
     ctx.filter = filterString;
     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+    if (filters.vignette > 0) {
+      const centerX = canvas.width / 2;
+      const centerY = canvas.height / 2;
+      const radius = Math.max(canvas.width, canvas.height) / 1.5;
+      
+      // Create a radial gradient for the vignette
+      const gradient = ctx.createRadialGradient(
+        centerX, centerY, radius * (1 - filters.vignette / 100), 
+        centerX, centerY, radius
+      );
+      
+      gradient.addColorStop(0, 'rgba(0,0,0,0)');
+      gradient.addColorStop(1, 'rgba(0,0,0,0.8)');
+      
+      // Apply the vignette
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.globalCompositeOperation = 'source-over'; // Reset
+    }
+
   };
 
   // Drawing functions
@@ -363,13 +390,13 @@ const EditImage = () => {
         <div className="flex gap-8">
           <div className="w-64 space-y-4">
           {editMode === 'enhancements' ? (
-            ['Brightness', 'Contrast', 'Saturation', 'Blur'].map((label, index) => (
+            ['Brightness', 'Contrast', 'Saturation', 'Blur', 'Exposure', 'Vignette'].map((label, index) => (
               <div key={index} className="space-y-2">
                 <label className="flex items-center gap-2 text-gray-200">
                   <Sun className="w-4 h-4" />
                   {label}
                 </label>
-                <input type="range" min="0" max={label === 'Blur' ? 10 : 200} value={filters[label.toLowerCase()]} 
+                <input type="range" min="0" max={label === 'Blur' ? 10 : label === 'Vignette' ? 100 : 200} value={filters[label.toLowerCase()]} 
                 onChange={(e) => setFilters(prev => ({ ...prev, [label.toLowerCase()]: Number(e.target.value) }))} 
                 className="w-full h-2 bg-gray-700 rounded-lg" />
               </div>
