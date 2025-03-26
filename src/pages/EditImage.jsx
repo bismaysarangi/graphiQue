@@ -390,27 +390,17 @@ const EditImage = () => {
         <div className="flex gap-8">
           <div className="w-64 space-y-4">
           {editMode === 'enhancements' ? (
-            ['Brightness', 'Contrast', 'Saturation', 'Blur', 'Exposure', 'Vignette'].map((label, index) => (
+            ['Brightness', 'Contrast', 'Saturation', 'Blur'].map((label, index) => (
               <div key={index} className="space-y-2">
-                <label className="flex items-center gap-2 text-gray-200">
-                  <Sun className="w-4 h-4" />
-                  {label}
-                </label>
-                <input type="range" min="0" max={label === 'Blur' ? 10 : label === 'Vignette' ? 100 : 200} value={filters[label.toLowerCase()]} 
-                onChange={(e) => setFilters(prev => ({ ...prev, [label.toLowerCase()]: Number(e.target.value) }))} 
-                className="w-full h-2 bg-gray-700 rounded-lg" />
+                <label className="flex items-center gap-2 text-gray-200"><Sun className="w-4 h-4" />{label}</label>
+                <input type="range" min="0" max={label === 'Blur' ? 10 : 200} value={filters[label.toLowerCase()]} onChange={(e) => setFilters(prev => ({ ...prev, [label.toLowerCase()]: Number(e.target.value) }))} className="w-full h-2 bg-gray-700 rounded-lg" />
               </div>
             ))
           ) : editMode === 'filters' ? (
-            ['Sepia', 'Invert', 'Grayscale'].map((label, index) => (
+            ['Sepia', 'Invert', 'Grayscale', 'Exposure', 'Vignette'].map((label, index) => (
               <div key={index} className="space-y-2">
-                <label className="flex items-center gap-2 text-gray-200">
-                  <Sun className="w-4 h-4" />
-                  {label}
-                </label>
-                <input type="range" min="0" max="100" value={filters[label.toLowerCase()]} 
-                onChange={(e) => setFilters(prev => ({ ...prev, [label.toLowerCase()]: Number(e.target.value) }))} 
-                className="w-full h-2 bg-gray-700 rounded-lg" />
+                <label className="flex items-center gap-2 text-gray-200"><Sun className="w-4 h-4" />{label}</label>
+                <input type="range" min="0" max={label === 'Vignette' ? 100 : 100} value={filters[label.toLowerCase()]} onChange={(e) => setFilters(prev => ({ ...prev, [label.toLowerCase()]: Number(e.target.value) }))} className="w-full h-2 bg-gray-700 rounded-lg" />
               </div>
             ))
             ) : editMode === 'brush' ? (
