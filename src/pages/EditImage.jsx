@@ -400,7 +400,7 @@ const EditImage = () => {
             ['Sepia', 'Invert', 'Grayscale', 'Exposure', 'Vignette'].map((label, index) => (
               <div key={index} className="space-y-2">
                 <label className="flex items-center gap-2 text-gray-200"><Sun className="w-4 h-4" />{label}</label>
-                <input type="range" min="0" max={label === 'Vignette' ? 100 : 100} value={filters[label.toLowerCase()]} onChange={(e) => setFilters(prev => ({ ...prev, [label.toLowerCase()]: Number(e.target.value) }))} className="w-full h-2 bg-gray-700 rounded-lg" />
+                <input type="range" min="0" max={label === 'Vignette' ? 100 : 200} value={filters[label.toLowerCase()]} onChange={(e) => setFilters(prev => ({ ...prev, [label.toLowerCase()]: Number(e.target.value) }))} className="w-full h-2 bg-gray-700 rounded-lg" />
               </div>
             ))
             ) : editMode === 'brush' ? (
