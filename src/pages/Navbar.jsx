@@ -9,7 +9,7 @@ export default function Navbar() {
   return (
     <header className="px-4 lg:px-6 h-20 flex items-center fixed top-0 w-full z-50 bg-black bg-opacity-50 backdrop-blur-md">
       <Link to="/" className="flex items-center justify-center text-white">
-        <span className="ml-2 text-xl font-bold text-white">GraphiQue</span>
+        <span className="ml-2 text-2xl font-bold text-white">GraphiQue</span>
       </Link>
 
       {/* Mobile Menu Button */}
