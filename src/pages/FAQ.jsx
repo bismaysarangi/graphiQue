@@ -22,7 +22,7 @@ export default function FAQ() {
 
   return (
     <section id="faq" className="w-full py-20 md:py-28 lg:py-32 bg-black">
-      <div className="container px-4 md:px-6">
+      <div className=" px-4 md:px-6">
         <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12">
           <div className="space-y-2">
             <h2 className="text-3xl font-bold sm:text-4xl md:text-5xl text-white">FAQ</h2>

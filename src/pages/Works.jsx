@@ -10,7 +10,7 @@ export default function Works() {
 
   return (
     <section id="how-it-works" className="w-full py-20 md:py-28 lg:py-32 bg-black">
-      <div className="container px-4 md:px-6 text-center">
+      <div className=" px-4 md:px-6 text-center">
         <h2 className="text-3xl font-bold sm:text-4xl md:text-5xl text-white">How It Works</h2>
         <p className="mx-auto max-w-[900px] text-gray-400 md:text-xl lg:text-2xl">
           Transform your images in minutes with these simple steps.
