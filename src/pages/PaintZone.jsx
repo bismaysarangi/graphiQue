@@ -137,17 +137,19 @@ const PaintZone = () => {
       </div>
 
       {/* Canvas */}
-      <div className="w-full max-w-4xl mb-8 border border-gray-700 rounded-lg overflow-hidden bg-black">
-        <canvas
-          ref={canvasRef}
-          width={750}
-          height={450}
-          className="w-full h-full block"
-          onMouseDown={handleMouseDown}
-          onMouseMove={handleMouseMove}
-          onMouseUp={handleMouseUp}
-          onMouseLeave={handleMouseUp}
-        />
+      <div className="flex justify-center mb-8">
+        <div className="border border-gray-700 rounded-lg bg-black">
+          <canvas
+            ref={canvasRef}
+            width={750}
+            height={450}
+            className="block rounded-lg"
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseUp}
+          />
+        </div>
       </div>
 
       {/* Buttons */}
