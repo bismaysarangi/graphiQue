@@ -13,7 +13,7 @@ export default function Features() {
 
   return (
     <section id="features" className="w-full py-20 md:py-28 lg:py-32 bg-black">
-      <div className="container px-4 md:px-6 text-center">
+      <div className=" px-4 md:px-6 text-center">
         <h2 className="text-3xl font-bold sm:text-4xl md:text-5xl text-white">Powerful Features</h2>
         <p className="text-gray-400 md:text-xl lg:text-2xl">
           Professional-grade tools in a seamless, intuitive platform.
