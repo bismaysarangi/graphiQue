@@ -7,7 +7,7 @@ export default function Features() {
   const features = [
     { icon: Edit, title: "Edit Image", desc: "Smart adjustment tools for quick, professional enhancements.", color: "text-purple-400", path: "/edit-image" },
     { icon: Layers, title: "Paint Zone", desc: "Create complex compositions with our powerful layering system.", color: "text-blue-400", path: "/paint-zone" },
-    { icon: Bot, title: "AI Background Editor", desc: "Smart background editing with one click—no manual selection needed.", color: "text-green-400", path: "https://67f48122b61e4c4cc9e6aa22--ai-image-editor-cap.netlify.app/" },
+    { icon: Bot, title: "AI Background Editor", desc: "Smart background editing with one click—no manual selection needed.", color: "text-green-400", path: "https://ai-image-editor-cap.netlify.app/" },
     { icon: Brain, title: "AI Image Enhancer", desc: "Automatically improve clarity, colors, and sharpness for flawless photos.", color: "text-red-400", path: "https://graphique-image-enhancer.netlify.app/" },
   ];
 
