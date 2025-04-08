@@ -1,5 +1,3 @@
-"use client"
-
 import { useState, useRef, useEffect } from "react"
 import { Sliders, Sun, Upload, Download, Undo } from "lucide-react"
 
@@ -142,7 +140,7 @@ const EditImage = () => {
       ctx.globalCompositeOperation = "source-over"
       ctx.fillStyle = gradient
       ctx.fillRect(0, 0, canvas.width, canvas.height)
-      ctx.globalCompositeOperation = "source-over" // Reset
+      ctx.globalCompositeOperation = "source-over" 
     }
   }
 
@@ -156,7 +154,6 @@ const EditImage = () => {
     const x = e.clientX - rect.left
     const y = e.clientY - rect.top
 
-    // Save current state for undo
     const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height)
     setUndoStack((prev) => [...prev, imageData])
 
@@ -215,7 +212,6 @@ const EditImage = () => {
     setCropEnd({ x, y })
     setIsCropping(true)
 
-    // Save current state for undo
     const ctx = canvas.getContext("2d")
     const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height)
     setCropStack((prev) => [...prev, { imageData, width: canvas.width, height: canvas.height }])
@@ -442,7 +438,6 @@ const EditImage = () => {
                 </div>
               ))
             ) : editMode === "brush" ? (
-              // Brush controls
               <div className="space-y-3 sm:space-y-4">
                 <div className="space-y-1 sm:space-y-2">
                   <label className="block text-gray-200 text-sm sm:text-base">Color</label>
@@ -478,7 +473,6 @@ const EditImage = () => {
                 </div>
               </div>
             ) : (
-              // Crop controls
               <div className="space-y-3 sm:space-y-4">
                 <p className="text-gray-200 text-sm sm:text-base">Click and drag to select the crop area.</p>
               </div>
