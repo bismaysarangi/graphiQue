@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link as ScrollLink } from "react-scroll";
 import { Link } from "react-router-dom";
-import { LogIn, Menu, X } from "lucide-react";
+import {  Menu, X } from "lucide-react";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -49,14 +49,7 @@ export default function Navbar() {
         >
           FAQ
         </ScrollLink>
-        <button
-          className="inline-flex items-center justify-center rounded-full bg-white px-4 py-2 text-sm font-medium text-black transition-colors hover:bg-gray-200"
-          aria-label="Login"
-          onClick={() => console.log("Login button clicked")}
-        >
-          <LogIn className="mr-2 h-4 w-4" />
-          Login
-        </button>
+    
       </nav>
 
       {/* Mobile Menu - Small Dropdown */}
@@ -92,14 +85,7 @@ export default function Navbar() {
           >
             FAQ
           </ScrollLink>
-          <button
-            className="inline-flex items-center justify-center rounded-full bg-white px-4 py-2 text-sm font-medium text-black transition-colors hover:bg-gray-200 w-full"
-            aria-label="Login"
-            onClick={() => setIsOpen(false)}
-          >
-            <LogIn className="mr-2 h-4 w-4" />
-            Login
-          </button>
+       
         </div>
       )}
     </header>
